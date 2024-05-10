@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Diary>
+    <Entry>
+        <Date>2024-05-01</Date>
+        <Title>First Entry</Title>
+        <Content>This is the content of my first diary entry.</Content>
+    </Entry>
+    <Entry>
+        <Date>2024-05-02</Date>
+        <Title>Second Entry</Title>
+        <Content>This is the content of my second diary entry.</Content>
+    </Entry>
+    <Entry>
+        <Date>2024-05-03</Date>
+        <Title>Third Entry</Title>
+        <Content>This is the content of my third diary entry.</Content>
+    </Entry>
+    <Entry>
+        <Date>2024-05-04</Date>
+        <Title>Fourth Entry</Title>
+        <Content>This is the content of my fourth diary entry.</Content>
+    </Entry>
+    <Entry>
+        <Date>2024-05-05</Date>
+        <Title>Fifth Entry</Title>
+        <Content>This is the content of my fifth diary entry.</Content>
+    </Entry>
+	
+<Entry><Date>2024-06-10</Date><Title>Done</Title><Content>I finished my project in WST. The only thing left for me to do is to post it on github but the problem is that I used php, and github doesn't support php. I'm doomed.</Content></Entry></Diary>

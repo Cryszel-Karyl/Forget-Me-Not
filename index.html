@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entries</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script>
+function showEntries() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var entries = JSON.parse(this.responseText);
+            var entryContainer = document.getElementById("entries-container");
+
+            entryContainer.innerHTML = "";
+
+            entries.forEach(function (entry) {
+                var cardDiv = document.createElement("div");
+                cardDiv.className = "card";
+
+                var containerDiv = document.createElement("div");
+                containerDiv.className = "container2";
+
+                var nameLabel = document.createElement("label");
+                nameLabel.innerHTML = "<b>Date: </b>";
+                var nameText = document.createElement("p");
+                nameText.textContent = entry.Date;
+
+                var titleLabel = document.createElement("label");
+                titleLabel.innerHTML = "<b>Title: </b>";
+                var titleText = document.createElement("p");
+                titleText.textContent = entry.Title;
+
+                var contentLabel = document.createElement("label");
+                contentLabel.innerHTML = "<b>Content: </b>";
+                var contentText = document.createElement("p");
+
+                if (entry.Content.indexOf('.') !== -1) {
+                    contentText.textContent = entry.Content.substring(0, entry.Content.indexOf('.') + 1);
+                } else {
+                    contentText.textContent = entry.Content;
+                }
+
+                containerDiv.appendChild(nameLabel);
+                containerDiv.appendChild(nameText);
+                containerDiv.appendChild(titleLabel);
+                containerDiv.appendChild(titleText);
+                containerDiv.appendChild(contentLabel);
+                containerDiv.appendChild(contentText);
+
+                cardDiv.appendChild(containerDiv);
+                entryContainer.appendChild(cardDiv);
+            });
+        }
+    };
+    xmlhttp.open("GET", "load_Entries.php", true);
+    xmlhttp.send();
+}
+
+
+    window.onload = function() {
+      showEntries();
+    };
+function showAllEntriesModal() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var entries = JSON.parse(this.responseText);
+            var modalContent = document.getElementById("all-entries-modal-content");
+
+            modalContent.innerHTML = "";
+
+            entries.forEach(function(entry) {
+                var listItem = document.createElement("li");
+                listItem.textContent = entry.Date + " - " + entry.Title;
+
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "delete-button";
+                deleteButton.onclick = function() {
+                    deleteEntry(entry.Date); 
+                };
+
+                var editButton = document.createElement("button");
+                editButton.textContent = "Edit";
+                editButton.className = "edit-button";
+                editButton.onclick = function() {
+                    openEditModal(entry);
+                };
+
+                listItem.appendChild(deleteButton);
+                listItem.appendChild(editButton);
+
+                modalContent.appendChild(listItem);
+            });
+
+            document.getElementById("all-entries-modal").style.display = "block";
+        }
+    };
+    xmlhttp.open("GET", "load_Entries.php", true);
+    xmlhttp.send();
+}
+
+function openEditModal(entry) {
+    document.getElementById("edit-date").value = entry.Date;
+    document.getElementById("edit-title").value = entry.Title;
+    document.getElementById("edit-content").value = entry.Content;
+	
+	deleteEntry(entry.Date);
+
+    document.getElementById("all-entries-modal").style.display = "none";
+    document.getElementById('id02').style.display = 'block';
+}
+
+function showAllEntriesAndPerformAction() {
+    document.getElementById('all-entries-modal').style.display = 'block';
+    document.getElementById('id02').style.display = 'none';
+}
+
+function deleteEntry(date) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showAllEntriesModal();
+        }
+    };
+    xmlhttp.open("GET", "try.php?date=" + date, true);
+    xmlhttp.send();
+}
+
+function editEntry(date) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            showEntries();
+        }
+    };
+    xmlhttp.open("GET", "edit_entry.php?date=" + date, true);
+    xmlhttp.send();
+}
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <h3>Forget-Me-Not</h3>
+  <a class="active" href="#home">Home</a>
+  <a href="#calendar">Calendar</a>
+  <a href="#about">About</a>
+  <a href="#settings">Settings</a>
+  <a href="#logout" onclick="window.location.href='login.html'">Logout</a>
+</div>
+
+<div class="content">
+  <h1>Diary Entries</h1>
+  <hr>
+  <div id="entries-container">
+    <!-- Entries will be displayed here -->
+  </div>
+</div>
+
+<div class="footer">
+  <div class="button-container">
+    <button class="btn" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-plus"></i></button>
+    <button class="btn" onclick="showAllEntriesModal()"><i class="fa fa-pencil"></i></button>
+  </div>
+</div>
+
+<!-- Modal for adding new entry -->
+<div id="id01" class="modal">
+  <form class="modal-content" action="newEntry.php">
+    <div class="container">
+      <h2>Diary Entry</h2>
+      <hr>
+      <label for="date"><b>Date</b></label>
+      <input type="text" placeholder="2024-05-01" name="date" required>
+      <label for="title"><b>Title</b></label>
+      <input type="text" placeholder="Title" name="title" required>
+      <div class="typing">
+        <label for="content"><b>Content</b></label>
+        <textarea placeholder="Today I..." name="content" required></textarea>
+      </div>
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" class="save">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Modal for displaying all entries as a list -->
+<div id="all-entries-modal" class="modal2">
+  <div class="modal-content2">
+    <h2>All Entries</h2>
+    <ul id="all-entries-modal-content">
+      <!-- Entries will be displayed here as a list -->
+    </ul>
+    <div class="clearfix">
+      <button type="button" onclick="document.getElementById('all-entries-modal').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="id02" class="modal">
+  <form class="modal-content" action="newEntry.php">
+    <div class="container">
+      <h2>Edit Diary Entry</h2>
+      <hr>
+      <label for="edit-date"><b>Date</b></label>
+      <input type="text" placeholder="2024-05-01" name="date" id="edit-date" required>
+      <label for="edit-title"><b>Title</b></label>
+      <input type="text" placeholder="Title" name="title" id="edit-title" required>
+      <div class="typing">
+        <label for="edit-content"><b>Content</b></label>
+        <textarea placeholder="Today I..." name="content" id="edit-content" required></textarea>
+      </div>
+      <div class="clearfix">
+        <button type="button" onclick="showAllEntriesAndPerformAction()" class="cancelbtn">Cancel</button>
+        <button type="submit" class="save">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

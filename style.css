@@ -1,0 +1,291 @@
+body {
+  margin: 0;
+  font-family: Verdana, sans-serif;
+}
+
+h3 {
+	color:white;
+	padding:20px;
+	text-decoration: underline;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #1d2e70;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  border:none;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 12px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #1d2e70;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  height: 1000px;
+  background-image: url('https://www.farmersalmanac.com/wp-content/uploads/2021/04/forget-me-not-flower-as309740666-949x630.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative; /* Change position to relative */
+    top: 0; /* Add top: 0 to move it to the top */
+  }
+  .sidebar a { 
+    float: left; 
+    font-size: 12px;
+  }
+  div.content { 
+    margin-left: 0; 
+    font-size: 15px;
+  }
+  
+  .content h1 {
+    font-size: 18px;
+  }
+  
+
+  .sidebar h3 {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+hr {
+	border-top: 3px solid #ffff1a;
+}
+
+.content h1 {
+	color:#0f183b;
+	background-color:#f7f7f7;
+	padding:20px;
+	border:none;
+	margin :0;
+	font-size:
+}
+
+#entries-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.card {
+  background-color:#f7f7f7;
+  padding: 15px;
+  margin: 10px;
+  width: calc(25% - 20px);
+  max-width: 400px;
+  box-sizing: border-box;
+  border-radius: 15px; 
+}
+
+.container2 p {
+  font-size: 10px;
+  color: #333333;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input[type=text] {
+  width: calc(38% - 10px);
+  padding: 15px;
+  margin: 5px 5px 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+.typing textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  height: 150px;
+  font-size: 16px;
+}
+
+.typing textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+.cancelbtn, .save {
+  width: 45%;
+  margin: 10px;
+}
+
+.container {
+  padding: 16px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-top: 50px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover, .close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+@media screen and (max-width: 700px) {
+  .modal-content {
+    width: 100%;
+    margin: 5% auto;
+  }
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 98%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-container {
+  margin: 2px;
+  display: flex;
+}
+
+.btn {
+  background-color: #1d2e70;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.modal2 {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal-content2 {
+  background-color: #fefefe;
+  margin: 20% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.delete-button,
+.edit-button {
+  background-color: #ffff1a;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #1d2e70;
+  color:white;
+}
